@@ -1,0 +1,98 @@
+s start 1
+
+s stringStart 0
+s stringLetter 0
+s stringEnd 3
+c start stringStart 34-34
+c stringStart stringLetter 97-122
+c stringStart stringLetter 65-90
+c stringStart stringLetter 48-57
+c stringStart stringLetter 95-95
+c stringLetter stringLetter 97-122
+c stringLetter stringLetter 65-90
+c stringLetter stringLetter 48-57
+c stringLetter stringLetter 95-95
+c stringLetter stringEnd 34-34
+
+s comStart 0
+s comBody 0
+s comEnd 3
+c start comStart 35-35
+c comStart comBody 0-255
+c comBody comEnd 35-35
+c comBody comBody 0-255
+
+s nameLetter 0
+s nameLetter2 0
+s nameLetterEnd 3
+c start nameLetter 97-122
+c start nameLetter 65-90
+c start nameLetter 95-95
+c nameLetter nameLetter2 48-57
+c nameLetter nameLetter 97-122
+c nameLetter nameLetter 65-90
+c nameLetter nameLetter 95-95
+c nameLetter nameLetterEnd 0-256
+c nameLetter2 nameLetter2 97-122
+c nameLetter2 nameLetter2 65-90
+c nameLetter2 nameLetter2 95-95
+c nameLetter2 nameLetter2 48-57
+c nameLetter2 nameLetterEnd 0-256
+
+s skip 2
+c start skip 32-32
+c start skip 13-13
+c start skip 10-10
+c start skip 9-9
+
+s ufloat 0
+s ufloatEnd 3
+
+s uint 0
+s uintEnd 3
+c start uint 48-57
+c uint uint 48-57
+c uint ufloat 46-46
+c ufloat ufloat 48-57
+c ufloat ufloatEnd 0-256
+c uint uintEnd 0-256
+
+s float 0
+s floatEnd 3
+
+s intSign 0
+s int 0
+s intEnd 3
+c start intSign 45-45
+c intSign int 48-57
+c int int 48-57
+c int float 46-46
+c float float 48-57
+c float floatEnd 0-256
+c int intEnd 0-256
+
+s specialSymbols 3
+c start specialSymbols 44-44
+c start specialSymbols 123-123
+c start specialSymbols 125-125
+c start specialSymbols 59-59
+
+s operators 3
+c start operators 43-43
+c start operators 45-45
+c start operators 42-42
+c start operators 47-47
+c start operators 46-46
+c start operators 40-41
+
+s comOperators 0
+s comOperatorsEnd 3
+c start comOperators 61-61
+c comOperators comOperatorsEnd 60-60
+c comOperators comOperatorsEnd 62-62
+c comOperators comOperatorsEnd 33-33
+c comOperators comOperatorsEnd 0-256
+
+s comOperators2 3
+c start comOperators2 60-60
+c start comOperators2 62-62
