@@ -1,0 +1,292 @@
+<program>
+  <lanesDeclare>
+    <laneDeclare>
+      <moduleDeclare>
+        <module 'lexema'='module'/>
+        <moduleName>
+          <name 'lexema'='System'/>
+        </moduleName>
+        <seperator>
+          <; 'lexema'=';'/>
+        </seperator>
+      </moduleDeclare>
+    </laneDeclare>
+    <lanesDeclare>
+      <laneDeclare>
+        <classDeclare>
+          <class 'lexema'='class'/>
+          <className>
+            <name 'lexema'='Test'/>
+          </className>
+          <{ 'lexema'='{'/>
+          <classLanesDeclare>
+            <classLaneDeclare>
+              <methodDeclare>
+                <accesabilityName>
+                  <public 'lexema'='public'/>
+                </accesabilityName>
+                <methodDefaultDeclare>
+                  <functionDeclare>
+                    <typeNameFull>
+                      <primitiveNameFull>
+                        <primitiveName>
+                          <void 'lexema'='void'/>
+                        </primitiveName>
+                      </primitiveNameFull>
+                    </typeNameFull>
+                    <functionName>
+                      <name 'lexema'='MagicFunction'/>
+                    </functionName>
+                    <( 'lexema'='('/>
+                    <parametersDeclare>
+                      <parameterDeclare>
+                        <typeNameFull>
+                          <primitiveNameFull>
+                            <primitiveName>
+                              <int 'lexema'='int'/>
+                            </primitiveName>
+                          </primitiveNameFull>
+                        </typeNameFull>
+                        <veriableName>
+                          <name 'lexema'='a'/>
+                        </veriableName>
+                      </parameterDeclare>
+                      <, 'lexema'=','/>
+                      <parametersDeclare>
+                        <parameterDeclare>
+                          <typeNameFull>
+                            <primitiveNameFull>
+                              <primitiveName>
+                                <int 'lexema'='int'/>
+                              </primitiveName>
+                            </primitiveNameFull>
+                          </typeNameFull>
+                          <veriableName>
+                            <name 'lexema'='gaba'/>
+                          </veriableName>
+                        </parameterDeclare>
+                        <) 'lexema'=')'/>
+                      </parametersDeclare>
+                    </parametersDeclare>
+                    <block>
+                      <{ 'lexema'='{'/>
+                      <} 'lexema'='}'/>
+                    </block>
+                  </functionDeclare>
+                </methodDefaultDeclare>
+              </methodDeclare>
+            </classLaneDeclare>
+            <} 'lexema'='}'/>
+          </classLanesDeclare>
+        </classDeclare>
+      </laneDeclare>
+      <lanesDeclare>
+        <laneDeclare>
+          <functionDeclare>
+            <typeNameFull>
+              <primitiveNameFull>
+                <primitiveName>
+                  <int 'lexema'='int'/>
+                </primitiveName>
+              </primitiveNameFull>
+            </typeNameFull>
+            <functionName>
+              <name 'lexema'='Main'/>
+            </functionName>
+            <( 'lexema'='('/>
+            <) 'lexema'=')'/>
+            <block>
+              <{ 'lexema'='{'/>
+              <statements>
+                <statement>
+                  <statementDefault>
+                    <veriableDeclare>
+                      <typeNameFull>
+                        <primitiveNameFull>
+                          <primitiveName>
+                            <int 'lexema'='int'/>
+                          </primitiveName>
+                        </primitiveNameFull>
+                      </typeNameFull>
+                      <veriableName>
+                        <name 'lexema'='a'/>
+                      </veriableName>
+                      <= 'lexema'='='/>
+                      <expression>
+                        <expressionAnd>
+                          <expressionCmp>
+                            <expressionAdd>
+                              <expressionMult>
+                                <expressionUno>
+                                  <constant>
+                                    <constantInt 'lexema'='10'/>
+                                  </constant>
+                                </expressionUno>
+                              </expressionMult>
+                            </expressionAdd>
+                          </expressionCmp>
+                        </expressionAnd>
+                      </expression>
+                      <seperator>
+                        <; 'lexema'=';'/>
+                      </seperator>
+                    </veriableDeclare>
+                  </statementDefault>
+                </statement>
+                <statements>
+                  <statement>
+                    <statementDefault>
+                      <veriableDeclare>
+                        <typeNameFull>
+                          <primitiveNameFull>
+                            <primitiveName>
+                              <int 'lexema'='int'/>
+                            </primitiveName>
+                          </primitiveNameFull>
+                        </typeNameFull>
+                        <veriableName>
+                          <name 'lexema'='b'/>
+                        </veriableName>
+                        <= 'lexema'='='/>
+                        <expression>
+                          <expressionAnd>
+                            <expressionCmp>
+                              <expressionAdd>
+                                <expressionMult>
+                                  <expressionUno>
+                                    <constant>
+                                      <constantInt 'lexema'='25'/>
+                                    </constant>
+                                  </expressionUno>
+                                </expressionMult>
+                              </expressionAdd>
+                            </expressionCmp>
+                          </expressionAnd>
+                        </expression>
+                        <seperator>
+                          <; 'lexema'=';'/>
+                        </seperator>
+                      </veriableDeclare>
+                    </statementDefault>
+                  </statement>
+                  <statements>
+                    <statement>
+                      <statementDefault>
+                        <veriableDeclare>
+                          <typeNameFull>
+                            <primitiveNameFull>
+                              <primitiveName>
+                                <float 'lexema'='float'/>
+                              </primitiveName>
+                            </primitiveNameFull>
+                          </typeNameFull>
+                          <veriableName>
+                            <name 'lexema'='c'/>
+                          </veriableName>
+                          <= 'lexema'='='/>
+                          <expression>
+                            <expressionAnd>
+                              <expressionCmp>
+                                <expressionAdd>
+                                  <expressionMult>
+                                    <expressionUno>
+                                      <expressionVeriable>
+                                        <expressionVeriableItem>
+                                          <veriableName>
+                                            <name 'lexema'='c'/>
+                                          </veriableName>
+                                        </expressionVeriableItem>
+                                      </expressionVeriable>
+                                    </expressionUno>
+                                    <mult>
+                                      <% 'lexema'='%'/>
+                                    </mult>
+                                    <expressionMult>
+                                      <expressionUno>
+                                        <( 'lexema'='('/>
+                                        <expression>
+                                          <expressionAnd>
+                                            <expressionCmp>
+                                              <expressionAdd>
+                                                <expressionMult>
+                                                  <expressionUno>
+                                                    <expressionVeriable>
+                                                      <expressionVeriableItem>
+                                                        <veriableName>
+                                                          <name 'lexema'='a'/>
+                                                        </veriableName>
+                                                      </expressionVeriableItem>
+                                                    </expressionVeriable>
+                                                  </expressionUno>
+                                                </expressionMult>
+                                                <add>
+                                                  <+ 'lexema'='+'/>
+                                                </add>
+                                                <expressionAdd>
+                                                  <expressionMult>
+                                                    <expressionUno>
+                                                      <expressionVeriable>
+                                                        <expressionVeriableItem>
+                                                          <veriableName>
+                                                            <name 'lexema'='b'/>
+                                                          </veriableName>
+                                                        </expressionVeriableItem>
+                                                      </expressionVeriable>
+                                                    </expressionUno>
+                                                  </expressionMult>
+                                                </expressionAdd>
+                                              </expressionAdd>
+                                            </expressionCmp>
+                                          </expressionAnd>
+                                        </expression>
+                                        <) 'lexema'=')'/>
+                                      </expressionUno>
+                                    </expressionMult>
+                                  </expressionMult>
+                                </expressionAdd>
+                              </expressionCmp>
+                            </expressionAnd>
+                          </expression>
+                          <seperator>
+                            <; 'lexema'=';'/>
+                          </seperator>
+                        </veriableDeclare>
+                      </statementDefault>
+                    </statement>
+                    <statements>
+                      <statement>
+                        <statementReturn>
+                          <return 'lexema'='return'/>
+                          <expression>
+                            <expressionAnd>
+                              <expressionCmp>
+                                <expressionAdd>
+                                  <expressionMult>
+                                    <expressionUno>
+                                      <constant>
+                                        <constantInt 'lexema'='0'/>
+                                      </constant>
+                                    </expressionUno>
+                                  </expressionMult>
+                                </expressionAdd>
+                              </expressionCmp>
+                            </expressionAnd>
+                          </expression>
+                          <seperator>
+                            <; 'lexema'=';'/>
+                          </seperator>
+                        </statementReturn>
+                      </statement>
+                      <} 'lexema'='}'/>
+                    </statements>
+                  </statements>
+                </statements>
+              </statements>
+            </block>
+          </functionDeclare>
+        </laneDeclare>
+        <end 'lexema'='end'/>
+      </lanesDeclare>
+    </lanesDeclare>
+  </lanesDeclare>
+</program>

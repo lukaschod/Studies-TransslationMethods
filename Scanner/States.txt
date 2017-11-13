@@ -1,98 +1,133 @@
-s start 1
+s start default
 
-s stringStart 0
-s stringLetter 0
-s stringEnd 3
-c start stringStart 34-34
-c stringStart stringLetter 97-122
-c stringStart stringLetter 65-90
-c stringStart stringLetter 48-57
-c stringStart stringLetter 95-95
-c stringLetter stringLetter 97-122
-c stringLetter stringLetter 65-90
-c stringLetter stringLetter 48-57
-c stringLetter stringLetter 95-95
-c stringLetter stringEnd 34-34
+// labels
+a start int
+a start if
+a start else
+a start for
+a start while
+a start class
+a start float
+a start string
+a start void
+a start public
+a start private
+a start protected
+a start module
+a start const
+a start return
+a start end
 
-s comStart 0
-s comBody 0
-s comEnd 3
-c start comStart 35-35
-c comStart comBody 0-255
-c comBody comEnd 35-35
-c comBody comBody 0-255
+// special symbols
+a start {
+a start }
+a start ;
+a start ,
+a start ~
 
-s nameLetter 0
-s nameLetter2 0
-s nameLetterEnd 3
-c start nameLetter 97-122
-c start nameLetter 65-90
-c start nameLetter 95-95
-c nameLetter nameLetter2 48-57
-c nameLetter nameLetter 97-122
-c nameLetter nameLetter 65-90
-c nameLetter nameLetter 95-95
-c nameLetter nameLetterEnd 0-256
-c nameLetter2 nameLetter2 97-122
-c nameLetter2 nameLetter2 65-90
-c nameLetter2 nameLetter2 95-95
-c nameLetter2 nameLetter2 48-57
-c nameLetter2 nameLetterEnd 0-256
+// operators
+a start ==
+a start <=
+a start >=
+a start !=
+a start +=
+a start -=
+a start *=
+a start /=
+a start &&
+a start ||
+a start <<
+a start >>
+a start =
+a start <
+a start >
+a start %
+a start &
+a start ^
+a start +
+a start -
+a start *
+a start /
+a start (
+a start )
+a start .
 
-s skip 2
+// constantString
+s constantString0 default
+s constantString1 default
+s constantString2 constantString
+c start constantString0 34-34
+c constantString0 constantString1 97-122
+c constantString0 constantString1 65-90
+c constantString0 constantString1 48-57
+c constantString0 constantString1 95-95
+c constantString1 constantString1 97-122
+c constantString1 constantString1 65-90
+c constantString1 constantString1 48-57
+c constantString1 constantString1 95-95
+c constantString1 constantString2 34-34
+
+// constantFloat
+s constantFloat0 default
+s constantFloat1 default
+s constantFloat2 default
+s constantFloat3 constantFloat
+c start constantFloat0 48-57
+c constantFloat0 constantFloat0 48-57
+c constantFloat0 constantFloat1 46-46
+c constantFloat1 constantFloat2 48-57
+c constantFloat2 constantFloat2 48-57
+t constantFloat2 constantFloat3 10-10
+t constantFloat2 constantFloat3 13-13
+t constantFloat2 constantFloat3 32-47
+t constantFloat2 constantFloat3 58-64
+t constantFloat2 constantFloat3 91-96
+t constantFloat2 constantFloat3 123-126
+
+
+// negative constantFloat
+s constantFloat4 default
+c start constantFloat4 45-45
+c constantFloat4 constantFloat0 48-57
+
+// constantInt
+s constantInt0 default
+s constantInt1 constantInt
+c start constantInt0 48-57
+c constantInt0 constantInt0 48-57
+t constantInt0 constantInt1 10-10
+t constantInt0 constantInt1 13-13
+t constantInt0 constantInt1 32-45
+t constantInt0 constantInt1 47-47
+t constantInt0 constantInt1 58-64
+t constantInt0 constantInt1 91-96
+t constantInt0 constantInt1 123-126
+
+// negative constatnt int
+s constantInt2 default
+c start constantInt2 45-45
+c constantInt2 constantInt0 48-57
+
+// skip
+s skip skip
 c start skip 32-32
 c start skip 13-13
 c start skip 10-10
 c start skip 9-9
 
-s ufloat 0
-s ufloatEnd 3
-
-s uint 0
-s uintEnd 3
-c start uint 48-57
-c uint uint 48-57
-c uint ufloat 46-46
-c ufloat ufloat 48-57
-c ufloat ufloatEnd 0-256
-c uint uintEnd 0-256
-
-s float 0
-s floatEnd 3
-
-s intSign 0
-s int 0
-s intEnd 3
-c start intSign 45-45
-c intSign int 48-57
-c int int 48-57
-c int float 46-46
-c float float 48-57
-c float floatEnd 0-256
-c int intEnd 0-256
-
-s specialSymbols 3
-c start specialSymbols 44-44
-c start specialSymbols 123-123
-c start specialSymbols 125-125
-c start specialSymbols 59-59
-
-s operators 3
-c start operators 43-43
-c start operators 45-45
-c start operators 42-42
-c start operators 47-47
-c start operators 46-46
-c start operators 40-41
-
-s comOperators 0
-s comOperatorsEnd 3
-c start comOperators 61-61
-c comOperators comOperatorsEnd 60-60
-c comOperators comOperatorsEnd 62-62
-c comOperators comOperatorsEnd 33-33
-c comOperators comOperatorsEnd 0-256
-
-s comOperators2 3
-c start comOperators2 60-60
-c start comOperators2 62-62
+// name
+s name0 default
+s name1 name
+c start name0 97-122
+c start name0 65-90
+c start name0 95-95
+c name0 name0 48-57
+c name0 name0 97-122
+c name0 name0 65-90
+c name0 name0 95-95
+t name0 name1 10-10
+t name0 name1 13-13
+t name0 name1 32-47
+t name0 name1 58-64
+t name0 name1 91-96
+t name0 name1 123-126

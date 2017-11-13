@@ -1,5 +1,6 @@
 #include "StateMachine.h"
 #include <stdio.h>
+#include <queue>
 
 StateMachine::StateMachine() :
 	currentState(nullptr),
@@ -12,36 +13,31 @@ StateMachine::~StateMachine()
 {
 }
 
-Error* StateMachine::LoadFromFile(const char* pathToFile)
+Error* StateMachine::LoadFromMemory(char* data, size_t size)
 {
-	auto file = fopen(pathToFile, "rb");
-	if (file == nullptr)
-		return new Error("File in path %s was not found", pathToFile);
-
+	BufferReader reader(data, data + size);
 	while (true)
 	{
-		char type[128];
-		if (fscanf(file, "%s", &type) <= 0)
+		auto lineStart = reader.pointer;
+		if (!reader.MovePointerToFirst('\n'))
 			break;
+
+		char type[128];
+		if (sscanf(lineStart, "%s", &type) <= 0)
+			break;
+		lineStart += strlen(type);
+
+		if (strcmp(type, "//") == 0)
+			continue;
 
 		if (strcmp(type, "s") == 0)
 		{
 			auto state = new State();
 
-			if (fscanf(file, "%s", &state->name) == 0)
+			if (sscanf(lineStart, "%s %s", &state->name, &state->type) == 0)
 				return new Error("Expected state name");
 
-			if (fscanf(file, "%u", &state->flag) == 0)
-				return new Error("Expected state flags");
 			states.push_back(state);
-
-			// Check if only one starting state is
-			if (startState != nullptr && state->flag == kStateMachineExitFlagStart)
-				return new Error("Only one starting state is allowed");
-
-			// Mark this state as starting one
-			if (startState == nullptr && state->flag == kStateMachineExitFlagStart)
-				startState = state;
 			continue;
 		}
 
@@ -50,7 +46,8 @@ Error* StateMachine::LoadFromFile(const char* pathToFile)
 			char firstStateName[128];
 			char secondStateName[128];
 			Range allowedInputRange;
-			if (fscanf(file, "%s %s %d-%d", &firstStateName, &secondStateName,
+
+			if (sscanf(lineStart, "%s %s %d-%d", &firstStateName, &secondStateName,
 				&allowedInputRange.start, &allowedInputRange.end) == 0)
 				return new Error("Expected connection(%d %d %d-%d)");
 
@@ -63,72 +60,77 @@ Error* StateMachine::LoadFromFile(const char* pathToFile)
 			if (stateSecond == nullptr)
 				return new Error("Unknown state %s", secondStateName);
 
-			stateFirst->connections.push_back(Connection(stateSecond, allowedInputRange));
+			stateFirst->connections.push_back(Connection(stateSecond, allowedInputRange, false));
+			continue;
+		}
+
+		if (strcmp(type, "t") == 0)
+		{
+			char firstStateName[128];
+			char secondStateName[128];
+			Range allowedInputRange;
+
+			if (sscanf(lineStart, "%s %s %d-%d", &firstStateName, &secondStateName,
+				&allowedInputRange.start, &allowedInputRange.end) == 0)
+				return new Error("Expected connection(%d %d %d-%d)");
+
+			auto stateFirst = TryFindState(firstStateName);
+			auto stateSecond = TryFindState(secondStateName);
+
+			if (stateFirst == nullptr)
+				return new Error("Unknown state %s", firstStateName);
+
+			if (stateSecond == nullptr)
+				return new Error("Unknown state %s", secondStateName);
+
+			stateFirst->connections.push_back(Connection(stateSecond, allowedInputRange, true));
+			continue;
+		}
+
+		if (strcmp(type, "a") == 0)
+		{
+			char stateName[128];
+
+			char phrase[128];
+			if (sscanf(lineStart, "%s %s", &stateName, &phrase) == 0)
+				return new Error("Expected connection(%d)");
+
+			auto phraseSize = strlen(phrase);
+			State* lastState = TryFindState(stateName);
+			for (int i = 0; i < phraseSize; i++)
+			{
+				auto state = new State();
+				sprintf(state->name, "%s%d", phrase, i);
+				sprintf(state->type, "default");
+				states.push_back(state);
+
+				lastState->connections.push_back(Connection(state, Range(phrase[i], phrase[i]), false));
+				lastState = state;
+			}
+
+			sprintf(states.back()->type, "%s", phrase);
 			continue;
 		}
 		
 		return new Error("Unknown type %c", type);
 	}
 
-	/*uint32_t statesCount;
-	if (fscanf(file, "%u", &statesCount) == 0)
-		return new Error("Expected statesCount(%u)");
-
-	for (uint32_t i = 0; i < statesCount; i++)
-	{
-		auto state = new State();
-		if (fscanf(file, "%u", &state->flag) == 0)
-			return new Error("Expected state flags");
-		states.push_back(state);
-
-		// Check if only one starting state is
-		if (startState != nullptr && state->flag == kStateMachineExitFlagStart)
-			return new Error("Only one starting state is allowed");
-
-		// Mark this state as starting one
-		if (startState == nullptr && state->flag == kStateMachineExitFlagStart)
-			startState = state;
-	}
-
-	uint32_t connectionsCount;
-	if (fscanf(file, "%u", &connectionsCount) == 0)
-		return new Error("Expected connectionsCount(%u)");
-
-	for (uint32_t i = 0; i < connectionsCount; i++)
-	{
-		uint32_t stateIdFirst;
-		uint32_t stateIdSecond;
-		Range allowedInputRange;
-		if (fscanf(file, "%d %d %d-%d", &stateIdFirst, &stateIdSecond, 
-			&allowedInputRange.start, &allowedInputRange.end) == 0)
-			return new Error("Expected connection(%d %d %d-%d)");
-
-		if (stateIdFirst >= states.size() || stateIdSecond >= states.size())
-			return new Error("Connection referencing unknown states");
-
-		auto stateFirst = states[stateIdFirst];
-		auto stateSecond = states[stateIdSecond];
-		stateFirst->connections.push_back(Connection(stateSecond, allowedInputRange));
-	}*/
-
+	startState = TryFindState("start");
 	if (startState == nullptr)
-		return new Error("One state must contain starting flag");
-
-	fclose(file);
+		startState = states[0];
 
 	return nullptr;
 }
 
-StateMachineExitFlag StateMachine::IsInputAcceptable(char** input)
+const char* StateMachine::IsInputAcceptable(char** input)
 {
 	currentState = startState;
 
 	while (true)
 	{
 		// Check if it is the end state
-		if (currentState->flag != kStateMachineExitFlagNone && 
-			currentState->flag != kStateMachineExitFlagStart)
-			return currentState->flag;
+		if (strcmp(currentState->type, "default") != 0)
+			return currentState->type;
 
 		// Iterate through all next connections
 		bool isConnectionFound = false;
@@ -146,8 +148,41 @@ StateMachineExitFlag StateMachine::IsInputAcceptable(char** input)
 		}
 
 		if (!isConnectionFound)
-			return kStateMachineExitFlagNone;
+			return "invalid";
 	}
+}
+
+const char * StateMachine::IsInputAcceptableND(char ** input)
+{
+	std::queue<IsInputAcceptableContext> contexts;
+	contexts.push(IsInputAcceptableContext(startState, *input));
+
+	// Do undertemenistic state machine with BNF
+	while (!contexts.empty())
+	{
+		auto context = contexts.front();
+		auto state = context.state;
+		contexts.pop();
+
+		// Check if it is the end state
+		if (strcmp(state->type, "default") != 0)
+		{
+			(*input) = context.input;
+			return state->type;
+		}
+
+		// Try the child states
+		for (auto& connection : state->connections)
+		{
+			if (connection.allowedInputRange.Contains(*context.input))
+			{
+				contexts.push(IsInputAcceptableContext(connection.target, 
+					connection.assert ? context.input :context.input + 1));
+			}
+		}
+	}
+
+	return "invalid";
 }
 
 StateMachine::State* StateMachine::TryFindState(char * name)

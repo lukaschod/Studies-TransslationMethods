@@ -14,7 +14,7 @@ void PrintLexemes(std::vector<Lexema*>& lexemas)
 	printf("Lexemes Table\n");
 	for (auto lexeme : lexemas)
 	{
-		printf("%d %s\n", lexeme->type, lexeme->data);
+		printf("%s %s\n", lexeme->type, lexeme->data);
 	}
 }
 
@@ -28,9 +28,12 @@ int main(int argc, const char * argv[])
 		return -1;
 	}
 
+	FileToBuffer fileToBuffer(2 ^ 16);
+
 	auto scanner = new Scanner();
 
-	error = scanner->LoadFromFile(argv[1]);
+	fileToBuffer.ReadFile(argv[1]);
+	error = scanner->LoadFromMemory(fileToBuffer.buffer, fileToBuffer.size);
 	if (error != nullptr)
 	{
 		PrintError(error);
@@ -39,7 +42,8 @@ int main(int argc, const char * argv[])
 	}
 
 	std::vector<Lexema*> lexemas;
-	error = scanner->LoadLexemasFromFile(argv[2], lexemas);
+	fileToBuffer.ReadFile(argv[2]);
+	error = scanner->LoadLexemasFromMemory(fileToBuffer.buffer, fileToBuffer.size, lexemas);
 	if (error != nullptr)
 	{
 		PrintError(error);

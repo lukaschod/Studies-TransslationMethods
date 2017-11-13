@@ -11,26 +11,15 @@ Scanner::~Scanner()
 	delete stateMachine;
 }
 
-Error* Scanner::LoadFromFile(const char* pathToFile)
+Error* Scanner::LoadFromMemory(char* data, size_t size)
 {
-	return stateMachine->LoadFromFile(pathToFile);
+	return stateMachine->LoadFromMemory(data, size);
 }
 
-Error* Scanner::LoadLexemasFromFile(const char* pathToFile, std::vector<Lexema*>& outLexemos)
+Error* Scanner::LoadLexemasFromMemory(char* data, size_t size, std::vector<Lexema*>& outLexemos)
 {
-	auto file = fopen(pathToFile, "rb");
-	if (file == nullptr)
-		return new Error("File in path %s was not found", pathToFile);
-
-	// TODO: Make normal reading
-	char begin[5000];
-	auto readed = fread(begin, sizeof(char), 5000, file);
-	if (readed == 0)
-		return new Error("Failed to read file");
-	begin[readed] = 0;
-
-	char* current = begin;
-	char* end = begin + readed;
+	char* current = (char*)data;
+	char* end = (char*) data + size;
 
 	while (true)
 	{
@@ -39,20 +28,20 @@ Error* Scanner::LoadLexemasFromFile(const char* pathToFile, std::vector<Lexema*>
 			break;
 
 		auto last = current;
-		auto result = stateMachine->IsInputAcceptable(&current);
+		auto result = stateMachine->IsInputAcceptableND(&current);
 
 		// Make sure valid lexema found
-		if (result == kStateMachineExitFlagNone)
+		if (strcmp(result, "invalid") == 0)
+		{
+			stateMachine->IsInputAcceptableND(&current); // For debugging
 			return new Error("Failed to find lexema");
+		}
 
-		if (result == kStateMachineExitFlagEnd)
+		if (strcmp(result, "skip") == 0)
 			continue;
 
-		auto lexema = new Lexema(last, current - last, (LexemaType)result);
+		auto lexema = new Lexema(last, current - last, result);
 		outLexemos.push_back(lexema);
 	}
-
-	fclose(file);
-
 	return nullptr;
 }

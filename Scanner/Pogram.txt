@@ -1,9 +1,17 @@
-module System
+module System;
 
-int main()
+class Test
+{
+	public void MagicFunction(int a, int gaba)
+	{
+	}
+}
+
+int Main()
 {
 	int a = 10;
-	float b = 2.5;
-
+	int b = 25;
+	float c = c % (a + b);
 	return 0;
 }
+end
