@@ -6,7 +6,7 @@
 class Lexema
 {
 public:
-	Lexema(char* data, size_t size, const char* type)
+	Lexema(char* data, size_t size, const char* type, size_t lineNumber)
 	{
 		memcpy(this->data, data, size);
 		strcpy(this->type, type);
@@ -16,6 +16,7 @@ public:
 public:
 	char data[128];
 	char type[128];
+	size_t lineNumber;
 };
 
 class Scanner

@@ -18,7 +18,7 @@ Error* Parser::AddExpresionsFromMemory(char* data, size_t size)
 		// Means it is finished
 		auto lineStart = reader.pointer;
 		if (!reader.MovePointerToFirst('\n'))
-			return nullptr;
+			break;
 
 		BufferReader lineReader(lineStart, reader.pointer);
 		// Check for comments
@@ -65,6 +65,11 @@ Error* Parser::AddExpresionsFromMemory(char* data, size_t size)
 				expressions.push_back(expression);
 			}
 		}
+	}
+
+	for (auto name : names)
+	{
+		name->expression = FindExpression(name);
 	}
 
 	return nullptr;
@@ -181,7 +186,7 @@ Error* Parser::Parse(char* startExpressionName, std::vector<Lexema*>& lexemos, P
 		{
 		case ExpressionExecutionStateNone:
 		{
-			//if (currentExecution.lexema == 46)
+			//if (currentExecution.lexema == 67 && (strcmp(IdToName(currentExecution.nameId), "expressionVeriable") == 0))
 			//	__debugbreak();
 			//if ((strcmp(IdToName(currentExecution.nameId), "int") == 0))
 			//	__debugbreak();
@@ -222,7 +227,7 @@ Error* Parser::Parse(char* startExpressionName, std::vector<Lexema*>& lexemos, P
 			}
 
 			// Lets try to find expression for this lexema, if there is no it means its failed
-			currentExecution.expression = FindExpression(currentExecution.nameId);
+			currentExecution.expression = currentExecution.nameId->expression;
 			if (currentExecution.expression == expressions.end())
 			{
 				currentExecution.state = ExpressionExecutionStateFailed;
@@ -243,12 +248,24 @@ Error* Parser::Parse(char* startExpressionName, std::vector<Lexema*>& lexemos, P
 		}
 		case ExpressionExecutionStateFailed:
 		{
-			if (logestSpree < treeConstructor.totalNodeCount)
+			if (logestSpree < currentExecution.lexema)
 			{
 				auto execution = executions.back();
-				longestSpreeError = new Error("While executing wiht lexema '%s' (%d). Expected in expression %s term %d. (%d)", 
-					lexemos[execution.lexema], execution.lexema, execution.nameId->name, execution.term, logestSpree);
-				logestSpree = treeConstructor.totalNodeCount;
+				if (executions.size() > 3)
+				{
+					longestSpreeError = new Error("While executing wiht lexema '%s' (%d). \nExpected in expression %s. \nExpected in expression %s. \nExpected in expression %s.",
+						lexemos[execution.lexema], execution.lexema, execution.nameId->name, 
+						executions[executions.size() - 3].nameId,
+						executions[executions.size() - 2].nameId,
+						executions[executions.size() - 1].nameId);
+				}
+				else
+				{
+					longestSpreeError = new Error("While executing wiht lexema '%s' (%d).",
+						lexemos[execution.lexema], execution.lexema, execution.nameId->name);
+				}
+				
+				logestSpree = currentExecution.lexema;
 			}
 			Pop();
 			executions.pop_back();
@@ -275,7 +292,7 @@ Error* Parser::Parse(char* startExpressionName, std::vector<Lexema*>& lexemos, P
 				if (!executions.empty())
 					executions.back().lexema = lexema;
 
-				treeConstructor.MoveBack();
+				treeConstructor.MoveBack();	
 			}
 			else
 			{
@@ -386,6 +403,8 @@ std::vector<Expression*>::iterator Parser::FindNextExpression(std::vector<Expres
 		auto& expression = *itr;
 		if (expression->nameId->name == (*current)->nameId->name)
 			return itr;
+		else
+			return expressions.end();
 	}
 	return itr;
 }

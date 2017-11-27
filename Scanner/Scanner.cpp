@@ -20,6 +20,7 @@ Error* Scanner::LoadLexemasFromMemory(char* data, size_t size, std::vector<Lexem
 {
 	char* current = (char*)data;
 	char* end = (char*) data + size;
+	size_t lineNumber = 0;
 
 	while (true)
 	{
@@ -38,9 +39,13 @@ Error* Scanner::LoadLexemasFromMemory(char* data, size_t size, std::vector<Lexem
 		}
 
 		if (strcmp(result, "skip") == 0)
+		{
+			if (*last == 13)
+				lineNumber++;
 			continue;
+		}
 
-		auto lexema = new Lexema(last, current - last, result);
+		auto lexema = new Lexema(last, current - last, result, lineNumber);
 		outLexemos.push_back(lexema);
 	}
 	return nullptr;

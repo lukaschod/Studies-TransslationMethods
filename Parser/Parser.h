@@ -1,22 +1,85 @@
 #pragma once
 
-#include <Common.h>
-#include <Scanner.h>
+#include "../Scanner/Scanner.h"
+#include "../Scanner/Common.h"
 
 #define MAX_TERM_COUNT 10
 
-struct ParseNode
+/*struct ParseNode
 {
-	std::vector<ParseNode*> childs;
-	ParseNode* parent;
 	char expression[128];
 	char lexema[128];
+	size_t lineNumber;
+	size_t level;
 };
 
 struct ParseTree
 {
-	ParseNode* root;
+	std::vector<ParseNode> nodes;
 };
+
+class ParseTreeConstructor
+{
+public:
+	ParseTreeConstructor(ParseTree* tree)
+		: tree(tree)
+		, currentLevel(0)
+	{
+	}
+
+	void MoveForward(char* name)
+	{
+		tree->nodes.push_back(ParseNode());
+		auto& node = tree->nodes.back();
+
+		auto node = new ParseNode();
+		strcpy(node.expression, name);
+		memset(node.lexema, 0, sizeof(char) * 128);
+		node.level = currentLevel;
+	}
+
+	void MoveBack()
+	{
+		currentLevel--;
+	}
+
+	void Rollback()
+	{
+		MoveBack();
+		while (true)
+		{
+			auto& node = tree->nodes.back();
+			if (node.level == currentLevel)
+				break;
+			tree->nodes.pop_back();
+		}
+	}
+
+	void SetLexemaForCurrent(char* name)
+	{
+		auto& node = tree->nodes.back();
+		strcpy(node.lexema, name);
+	}
+
+public:
+	ParseTree* tree;
+	size_t currentLevel;
+};*/
+
+struct ParseNode
+{
+std::vector<ParseNode*> childs;
+ParseNode* parent;
+char expression[128];
+char lexema[128];
+size_t lineNumber;
+};
+
+struct ParseTree
+{
+ParseNode* root;
+};
+
 
 class ParseTreeConstructor
 {
@@ -24,7 +87,6 @@ public:
 	ParseTreeConstructor(ParseTree* tree)
 		: current(nullptr)
 		, tree(tree)
-		, totalNodeCount(0)
 	{
 	}
 
@@ -45,8 +107,6 @@ public:
 			node->parent = current;
 			current = node;
 		}
-
-		totalNodeCount++;
 	}
 
 	void MoveBack()
@@ -78,19 +138,20 @@ private:
 			delete child;
 		}
 
-		totalNodeCount -= node->childs.size();
 		node->childs.clear();
 	}
 
 public:
 	ParseTree* tree;
 	ParseNode* current;
-	size_t totalNodeCount;
 };
+
+struct Expression;
 
 struct ExpressionName
 {
 	char name[128];
+	std::vector<Expression*>::iterator expression;
 
 	ExpressionName(char* name) { strcpy(this->name, name); }
 };

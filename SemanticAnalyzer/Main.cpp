@@ -1,4 +1,4 @@
-#include "Parser.h"
+#include "SemanticAnalyzer.h"
 
 void PrintError(Error* error)
 {
@@ -149,6 +149,9 @@ int main(int argc, const char * argv[])
 		PrintError(error);
 		return -1;
 	}
+
+	SemanticAnalyzer analyzer;
+	analyzer.GenerateCodeFromTree(&tree);
 
 	return 0;
 }
