@@ -1,0 +1,540 @@
+<_program>
+  <_Program 'lexema'='Program'/>
+  <_{ 'lexema'='{'/>
+  <_lanesDeclare>
+    <_laneDeclare>
+      <_functionDeclare>
+        <_typeNameFull>
+          <_primitiveNameFull>
+            <_primitiveName>
+              <_int 'lexema'='int'/>
+            </_primitiveName>
+          </_primitiveNameFull>
+        </_typeNameFull>
+        <_functionName>
+          <_name 'lexema'='Power2'/>
+        </_functionName>
+        <_( 'lexema'='('/>
+        <_parametersDeclare>
+          <_parameterDeclare>
+            <_typeNameFull>
+              <_primitiveNameFull>
+                <_primitiveName>
+                  <_int 'lexema'='int'/>
+                </_primitiveName>
+              </_primitiveNameFull>
+            </_typeNameFull>
+            <_veriableName>
+              <_name 'lexema'='a'/>
+            </_veriableName>
+          </_parameterDeclare>
+          <_) 'lexema'=')'/>
+        </_parametersDeclare>
+        <_block>
+          <_{ 'lexema'='{'/>
+          <_statements>
+            <_statement>
+              <_statementReturn>
+                <_return 'lexema'='return'/>
+                <_expression>
+                  <_expressionOr>
+                    <_expressionAnd>
+                      <_expressionCmp>
+                        <_expressionAdd>
+                          <_expressionMult>
+                            <_expressionUno>
+                              <_expressionVeriable>
+                                <_expressionVeriableItem>
+                                  <_veriableName>
+                                    <_name 'lexema'='a'/>
+                                  </_veriableName>
+                                </_expressionVeriableItem>
+                              </_expressionVeriable>
+                            </_expressionUno>
+                            <_mult>
+                              <_* 'lexema'='*'/>
+                            </_mult>
+                            <_expressionMult>
+                              <_expressionUno>
+                                <_expressionVeriable>
+                                  <_expressionVeriableItem>
+                                    <_veriableName>
+                                      <_name 'lexema'='a'/>
+                                    </_veriableName>
+                                  </_expressionVeriableItem>
+                                </_expressionVeriable>
+                              </_expressionUno>
+                            </_expressionMult>
+                          </_expressionMult>
+                        </_expressionAdd>
+                      </_expressionCmp>
+                    </_expressionAnd>
+                  </_expressionOr>
+                </_expression>
+                <_seperator>
+                  <_; 'lexema'=';'/>
+                </_seperator>
+              </_statementReturn>
+            </_statement>
+            <_} 'lexema'='}'/>
+          </_statements>
+        </_block>
+      </_functionDeclare>
+    </_laneDeclare>
+    <_lanesDeclare>
+      <_laneDeclare>
+        <_functionDeclare>
+          <_typeNameFull>
+            <_primitiveNameFull>
+              <_primitiveName>
+                <_int 'lexema'='int'/>
+              </_primitiveName>
+            </_primitiveNameFull>
+          </_typeNameFull>
+          <_functionName>
+            <_name 'lexema'='Main'/>
+          </_functionName>
+          <_( 'lexema'='('/>
+          <_) 'lexema'=')'/>
+          <_block>
+            <_{ 'lexema'='{'/>
+            <_statements>
+              <_statement>
+                <_statementDefault>
+                  <_veriableDeclareInit>
+                    <_typeNameFull>
+                      <_primitiveNameFull>
+                        <_primitiveName>
+                          <_int 'lexema'='int'/>
+                        </_primitiveName>
+                      </_primitiveNameFull>
+                    </_typeNameFull>
+                    <_veriableName>
+                      <_name 'lexema'='a'/>
+                    </_veriableName>
+                    <_= 'lexema'='='/>
+                    <_expression>
+                      <_expressionOr>
+                        <_expressionAnd>
+                          <_expressionCmp>
+                            <_expressionAdd>
+                              <_expressionMult>
+                                <_expressionUno>
+                                  <_constant>
+                                    <_constantInt 'lexema'='10'/>
+                                  </_constant>
+                                </_expressionUno>
+                              </_expressionMult>
+                            </_expressionAdd>
+                          </_expressionCmp>
+                        </_expressionAnd>
+                      </_expressionOr>
+                    </_expression>
+                    <_seperator>
+                      <_; 'lexema'=';'/>
+                    </_seperator>
+                  </_veriableDeclareInit>
+                </_statementDefault>
+              </_statement>
+              <_statements>
+                <_statement>
+                  <_statementDefault>
+                    <_veriableDeclareInit>
+                      <_typeNameFull>
+                        <_primitiveNameFull>
+                          <_primitiveName>
+                            <_int 'lexema'='int'/>
+                          </_primitiveName>
+                        </_primitiveNameFull>
+                      </_typeNameFull>
+                      <_veriableName>
+                        <_name 'lexema'='b'/>
+                      </_veriableName>
+                      <_= 'lexema'='='/>
+                      <_expression>
+                        <_expressionOr>
+                          <_expressionAnd>
+                            <_expressionCmp>
+                              <_expressionAdd>
+                                <_expressionMult>
+                                  <_expressionUno>
+                                    <_constant>
+                                      <_constantInt 'lexema'='25'/>
+                                    </_constant>
+                                  </_expressionUno>
+                                </_expressionMult>
+                              </_expressionAdd>
+                            </_expressionCmp>
+                          </_expressionAnd>
+                        </_expressionOr>
+                      </_expression>
+                      <_seperator>
+                        <_; 'lexema'=';'/>
+                      </_seperator>
+                    </_veriableDeclareInit>
+                  </_statementDefault>
+                </_statement>
+                <_statements>
+                  <_statement>
+                    <_statementDefault>
+                      <_veriableDeclareInit>
+                        <_typeNameFull>
+                          <_primitiveNameFull>
+                            <_primitiveName>
+                              <_int 'lexema'='int'/>
+                            </_primitiveName>
+                          </_primitiveNameFull>
+                        </_typeNameFull>
+                        <_veriableName>
+                          <_name 'lexema'='c'/>
+                        </_veriableName>
+                        <_= 'lexema'='='/>
+                        <_expression>
+                          <_expressionOr>
+                            <_expressionAnd>
+                              <_expressionCmp>
+                                <_expressionAdd>
+                                  <_expressionMult>
+                                    <_expressionUno>
+                                      <_( 'lexema'='('/>
+                                      <_expression>
+                                        <_expressionOr>
+                                          <_expressionAnd>
+                                            <_expressionCmp>
+                                              <_expressionAdd>
+                                                <_expressionMult>
+                                                  <_expressionUno>
+                                                    <_expressionVeriable>
+                                                      <_expressionVeriableItem>
+                                                        <_veriableName>
+                                                          <_name 'lexema'='a'/>
+                                                        </_veriableName>
+                                                      </_expressionVeriableItem>
+                                                    </_expressionVeriable>
+                                                  </_expressionUno>
+                                                </_expressionMult>
+                                                <_add>
+                                                  <_+ 'lexema'='+'/>
+                                                </_add>
+                                                <_expressionAdd>
+                                                  <_expressionMult>
+                                                    <_expressionUno>
+                                                      <_expressionVeriable>
+                                                        <_expressionVeriableItem>
+                                                          <_veriableName>
+                                                            <_name 'lexema'='b'/>
+                                                          </_veriableName>
+                                                        </_expressionVeriableItem>
+                                                      </_expressionVeriable>
+                                                    </_expressionUno>
+                                                  </_expressionMult>
+                                                </_expressionAdd>
+                                              </_expressionAdd>
+                                            </_expressionCmp>
+                                          </_expressionAnd>
+                                        </_expressionOr>
+                                      </_expression>
+                                      <_) 'lexema'=')'/>
+                                    </_expressionUno>
+                                    <_mult>
+                                      <_* 'lexema'='*'/>
+                                    </_mult>
+                                    <_expressionMult>
+                                      <_expressionUno>
+                                        <_constant>
+                                          <_constantInt 'lexema'='500'/>
+                                        </_constant>
+                                      </_expressionUno>
+                                    </_expressionMult>
+                                  </_expressionMult>
+                                </_expressionAdd>
+                              </_expressionCmp>
+                            </_expressionAnd>
+                          </_expressionOr>
+                        </_expression>
+                        <_seperator>
+                          <_; 'lexema'=';'/>
+                        </_seperator>
+                      </_veriableDeclareInit>
+                    </_statementDefault>
+                  </_statement>
+                  <_statements>
+                    <_statement>
+                      <_statementReturn>
+                        <_return 'lexema'='return'/>
+                        <_expression>
+                          <_expressionOr>
+                            <_expressionAnd>
+                              <_expressionCmp>
+                                <_expressionAdd>
+                                  <_expressionMult>
+                                    <_expressionUno>
+                                      <_constant>
+                                        <_constantInt 'lexema'='50'/>
+                                      </_constant>
+                                    </_expressionUno>
+                                    <_mult>
+                                      <_* 'lexema'='*'/>
+                                    </_mult>
+                                    <_expressionMult>
+                                      <_expressionUno>
+                                        <_constant>
+                                          <_constantInt 'lexema'='80'/>
+                                        </_constant>
+                                      </_expressionUno>
+                                      <_mult>
+                                        <_/ 'lexema'='/'/>
+                                      </_mult>
+                                      <_expressionMult>
+                                        <_expressionUno>
+                                          <_expressionVeriable>
+                                            <_expressionVeriableItem>
+                                              <_veriableName>
+                                                <_name 'lexema'='c'/>
+                                              </_veriableName>
+                                            </_expressionVeriableItem>
+                                          </_expressionVeriable>
+                                        </_expressionUno>
+                                      </_expressionMult>
+                                    </_expressionMult>
+                                  </_expressionMult>
+                                </_expressionAdd>
+                              </_expressionCmp>
+                            </_expressionAnd>
+                          </_expressionOr>
+                        </_expression>
+                        <_seperator>
+                          <_; 'lexema'=';'/>
+                        </_seperator>
+                      </_statementReturn>
+                    </_statement>
+                    <_statements>
+                      <_statement>
+                        <_statementCondition>
+                          <_if 'lexema'='if'/>
+                          <_( 'lexema'='('/>
+                          <_expression>
+                            <_expressionOr>
+                              <_expressionAnd>
+                                <_expressionCmp>
+                                  <_expressionAdd>
+                                    <_expressionMult>
+                                      <_expressionUno>
+                                        <_expressionVeriable>
+                                          <_expressionVeriableItem>
+                                            <_veriableName>
+                                              <_name 'lexema'='c'/>
+                                            </_veriableName>
+                                          </_expressionVeriableItem>
+                                        </_expressionVeriable>
+                                      </_expressionUno>
+                                    </_expressionMult>
+                                  </_expressionAdd>
+                                  <_comparison>
+                                    <_= 'lexema'='='/>
+                                    <_= 'lexema'='='/>
+                                  </_comparison>
+                                  <_expressionCmp>
+                                    <_expressionAdd>
+                                      <_expressionMult>
+                                        <_expressionUno>
+                                          <_constant>
+                                            <_constantInt 'lexema'='2'/>
+                                          </_constant>
+                                        </_expressionUno>
+                                      </_expressionMult>
+                                    </_expressionAdd>
+                                  </_expressionCmp>
+                                </_expressionCmp>
+                              </_expressionAnd>
+                            </_expressionOr>
+                          </_expression>
+                          <_) 'lexema'=')'/>
+                          <_block>
+                            <_{ 'lexema'='{'/>
+                            <_statements>
+                              <_statement>
+                                <_expression>
+                                  <_expressionOr>
+                                    <_expressionAnd>
+                                      <_expressionCmp>
+                                        <_expressionAdd>
+                                          <_expressionMult>
+                                            <_expressionUno>
+                                              <_expressionVeriable>
+                                                <_expressionVeriableItem>
+                                                  <_veriableName>
+                                                    <_name 'lexema'='c'/>
+                                                  </_veriableName>
+                                                </_expressionVeriableItem>
+                                              </_expressionVeriable>
+                                            </_expressionUno>
+                                          </_expressionMult>
+                                        </_expressionAdd>
+                                      </_expressionCmp>
+                                    </_expressionAnd>
+                                  </_expressionOr>
+                                  <_assigment>
+                                    <_= 'lexema'='='/>
+                                  </_assigment>
+                                  <_expression>
+                                    <_expressionOr>
+                                      <_expressionAnd>
+                                        <_expressionCmp>
+                                          <_expressionAdd>
+                                            <_expressionMult>
+                                              <_expressionUno>
+                                                <_expressionVeriable>
+                                                  <_expressionVeriableItem>
+                                                    <_functionCall>
+                                                      <_functionName>
+                                                        <_name 'lexema'='Power2'/>
+                                                      </_functionName>
+                                                      <_( 'lexema'='('/>
+                                                      <_parametersCall>
+                                                        <_expression>
+                                                          <_expressionOr>
+                                                            <_expressionAnd>
+                                                              <_expressionCmp>
+                                                                <_expressionAdd>
+                                                                  <_expressionMult>
+                                                                    <_expressionUno>
+                                                                      <_constant>
+                                                                        <_constantInt 'lexema'='10'/>
+                                                                      </_constant>
+                                                                    </_expressionUno>
+                                                                  </_expressionMult>
+                                                                </_expressionAdd>
+                                                              </_expressionCmp>
+                                                            </_expressionAnd>
+                                                          </_expressionOr>
+                                                        </_expression>
+                                                        <_) 'lexema'=')'/>
+                                                      </_parametersCall>
+                                                    </_functionCall>
+                                                  </_expressionVeriableItem>
+                                                </_expressionVeriable>
+                                              </_expressionUno>
+                                            </_expressionMult>
+                                          </_expressionAdd>
+                                        </_expressionCmp>
+                                      </_expressionAnd>
+                                    </_expressionOr>
+                                  </_expression>
+                                </_expression>
+                                <_seperator>
+                                  <_; 'lexema'=';'/>
+                                </_seperator>
+                              </_statement>
+                              <_} 'lexema'='}'/>
+                            </_statements>
+                          </_block>
+                        </_statementCondition>
+                      </_statement>
+                      <_statements>
+                        <_statement>
+                          <_expression>
+                            <_expressionOr>
+                              <_expressionAnd>
+                                <_expressionCmp>
+                                  <_expressionAdd>
+                                    <_expressionMult>
+                                      <_expressionUno>
+                                        <_expressionVeriable>
+                                          <_expressionVeriableItem>
+                                            <_functionCall>
+                                              <_functionName>
+                                                <_name 'lexema'='Power2'/>
+                                              </_functionName>
+                                              <_( 'lexema'='('/>
+                                              <_parametersCall>
+                                                <_expression>
+                                                  <_expressionOr>
+                                                    <_expressionAnd>
+                                                      <_expressionCmp>
+                                                        <_expressionAdd>
+                                                          <_expressionMult>
+                                                            <_expressionUno>
+                                                              <_constant>
+                                                                <_constantInt 'lexema'='10'/>
+                                                              </_constant>
+                                                            </_expressionUno>
+                                                          </_expressionMult>
+                                                        </_expressionAdd>
+                                                      </_expressionCmp>
+                                                    </_expressionAnd>
+                                                  </_expressionOr>
+                                                </_expression>
+                                                <_) 'lexema'=')'/>
+                                              </_parametersCall>
+                                            </_functionCall>
+                                          </_expressionVeriableItem>
+                                        </_expressionVeriable>
+                                      </_expressionUno>
+                                    </_expressionMult>
+                                  </_expressionAdd>
+                                </_expressionCmp>
+                              </_expressionAnd>
+                            </_expressionOr>
+                          </_expression>
+                          <_seperator>
+                            <_; 'lexema'=';'/>
+                          </_seperator>
+                        </_statement>
+                        <_statements>
+                          <_statement>
+                            <_expression>
+                              <_expressionOr>
+                                <_expressionAnd>
+                                  <_expressionCmp>
+                                    <_expressionAdd>
+                                      <_expressionMult>
+                                        <_expressionUno>
+                                          <_expressionVeriable>
+                                            <_expressionVeriableItem>
+                                              <_veriableName>
+                                                <_name 'lexema'='c'/>
+                                              </_veriableName>
+                                            </_expressionVeriableItem>
+                                          </_expressionVeriable>
+                                        </_expressionUno>
+                                      </_expressionMult>
+                                    </_expressionAdd>
+                                    <_comparison>
+                                      <_= 'lexema'='='/>
+                                      <_= 'lexema'='='/>
+                                    </_comparison>
+                                    <_expressionCmp>
+                                      <_expressionAdd>
+                                        <_expressionMult>
+                                          <_expressionUno>
+                                            <_constant>
+                                              <_constantInt 'lexema'='10'/>
+                                            </_constant>
+                                          </_expressionUno>
+                                        </_expressionMult>
+                                      </_expressionAdd>
+                                    </_expressionCmp>
+                                  </_expressionCmp>
+                                </_expressionAnd>
+                              </_expressionOr>
+                            </_expression>
+                            <_seperator>
+                              <_; 'lexema'=';'/>
+                            </_seperator>
+                          </_statement>
+                          <_} 'lexema'='}'/>
+                        </_statements>
+                      </_statements>
+                    </_statements>
+                  </_statements>
+                </_statements>
+              </_statements>
+            </_statements>
+          </_block>
+        </_functionDeclare>
+      </_laneDeclare>
+      <_} 'lexema'='}'/>
+    </_lanesDeclare>
+  </_lanesDeclare>
+</_program>

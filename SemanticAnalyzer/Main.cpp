@@ -1,4 +1,15 @@
 #include "SemanticAnalyzer.h"
+#include <Windows.h>
+#include <string.h>
+
+void PrintMessage(const char* format, ...)
+{
+	va_list ap;
+	va_start(ap, format);
+	printf("INFO: ");
+	vprintf_s(format, ap);
+	printf("\n");
+}
 
 void PrintError(Error* error)
 {
@@ -173,75 +184,128 @@ void PrintCode(BufferWriter& writer, Code* code)
 	}
 }
 
+const char* GetGlobalPath(const char* fileName)
+{
+	HMODULE hModule = GetModuleHandleW(NULL);
+	char* path = new char[MAX_PATH];
+	GetModuleFileName(hModule, path, MAX_PATH);
+	
+	// Remove exe path and add fileName
+	char* last = strrchr(path, '\\');
+	strcpy(last + 1, fileName);
+
+	return path;
+}
+
 int main(int argc, const char * argv[])
 {
-	Error* error;
+	// TODO: Remove this test commands
+	if (argc == 1)
+	{
+		argc = 1;
+		argv = new const char*[7];
+		argv[argc++] = "..\\..\\Demo\\States.txt";
+		argv[argc++] = "..\\..\\Demo\\Program.txt";
+		argv[argc++] = "..\\..\\Demo\\Gramma.txt";
+		argv[argc++] = "..\\..\\Demo\\Lexemos.txt";
+		argv[argc++] = "..\\..\\Demo\\ParseTree.txt";
+		argv[argc++] = "..\\..\\Demo\\Code.asm";
+
+		auto file = fopen(GetGlobalPath(argv[1]), "r");
+		if (file == nullptr)
+		{
+			argc = 1;
+			argv[argc++] = "States.txt";
+			argv[argc++] = "Program.txt";
+			argv[argc++] = "Gramma.txt";
+			argv[argc++] = "Lexemos.txt";
+			argv[argc++] = "ParseTree.txt";
+			argv[argc++] = "Code.asm";
+		}
+		else
+			fclose(file);
+	}
 
 	if (argc != 7)
 	{
-		PrintError(new Error("Program requires to pass [pathToStates] [pathToPorgram] [pathToExpressions]"));
+		PrintError(new Error("Program requires to pass [pathToStates] [pathToPorgram] [pathToExpressions] [pathToPrintLexemos] [pathToPrintParseTree] [pathToPrintCode]"));
 		return -1;
 	}
 
+	Error* error;
 	FileToBuffer fileToBuffer(65000);
-
 	Scanner scanner;
 
-	error = fileToBuffer.ReadFile(argv[1]);
+	auto pathToStateMachine = GetGlobalPath(argv[1]);
+	auto pathToProgram = GetGlobalPath(argv[2]);
+	auto pathToExpressions = GetGlobalPath(argv[3]);
+	auto pathToLexemos = GetGlobalPath(argv[4]);
+	auto pathToParseTree = GetGlobalPath(argv[5]);
+	auto pathToCode = GetGlobalPath(argv[6]);
+
+	// Create state machine from file
+	PrintMessage("Creating state machine from file %s...", pathToStateMachine);
+	error = fileToBuffer.ReadFile(pathToStateMachine);
 	if (error != nullptr)
 	{
 		PrintError(error);
 		return -1;
 	}
-
 	error = scanner.LoadFromMemory(fileToBuffer.buffer, fileToBuffer.size);
 	if (error != nullptr)
 	{
 		PrintError(error);
 		return -1;
 	}
+	PrintMessage("SUCCESS");
 
+	// Find all lexemos from program with state machine
+	PrintMessage("Finding lexemos from code %s...", pathToProgram);
 	std::vector<Lexema*> lexemas;
-	error = fileToBuffer.ReadFile(argv[2]);
+	error = fileToBuffer.ReadFile(pathToProgram);
 	if (error != nullptr)
 	{
 		PrintError(error);
 		return -1;
 	}
-
 	error = scanner.LoadLexemasFromMemory(fileToBuffer.buffer, fileToBuffer.size, lexemas);
 	if (error != nullptr)
 	{
 		PrintError(error);
 		return -1;
 	}
+	PrintMessage("SUCCESS");
 
+	// Output lexemos to file
+	PrintMessage("Outputing lexemos to file %s...", pathToLexemos);
 	BufferWriter lexemosWriter(fileToBuffer.buffer, fileToBuffer.buffer + fileToBuffer.capacity);
 	PrintLexemes(lexemosWriter, lexemas);
 	fileToBuffer.size = lexemosWriter.pointer - lexemosWriter.begin;
-	error = fileToBuffer.WriteFile(argv[4]);
+	error = fileToBuffer.WriteFile(pathToLexemos);
 	if (error != nullptr)
 	{
 		PrintError(error);
 		return -1;
 	}
+	PrintMessage("SUCCESS");
 
+	PrintMessage("Creating expressions from file %s...", pathToExpressions);
+	error = fileToBuffer.ReadFile(pathToExpressions);
+	if (error != nullptr)
+	{
+		PrintError(error);
+		return -1;
+	}
 	Parser parser;
-
-	error = fileToBuffer.ReadFile(argv[3]);
-	if (error != nullptr)
-	{
-		PrintError(error);
-		return -1;
-	}
-
 	error = parser.AddExpresionsFromMemory(fileToBuffer.buffer, fileToBuffer.size);
 	if (error != nullptr)
 	{
 		PrintError(error);
 		return -1;
 	}
-
+	PrintMessage("SUCCESS");
+	
+	PrintMessage("Creating parse tree...");
 	ParseTree tree;
 	error = parser.Parse("program", lexemas, &tree);
 	if (error != nullptr)
@@ -249,17 +313,21 @@ int main(int argc, const char * argv[])
 		PrintError(error);
 		return -1;
 	}
+	PrintMessage("SUCCESS");
 
+	PrintMessage("Outputing parse tree into %s...", pathToParseTree);
 	BufferWriter treeWriter(fileToBuffer.buffer, fileToBuffer.buffer + fileToBuffer.capacity);
 	PrintParseTree(treeWriter, &tree);
 	fileToBuffer.size = treeWriter.pointer - treeWriter.begin;
-	error = fileToBuffer.WriteFile(argv[5]);
+	error = fileToBuffer.WriteFile(pathToParseTree);
 	if (error != nullptr)
 	{
 		PrintError(error);
 		return -1;
 	}
+	PrintMessage("SUCCESS");
 
+	PrintMessage("Generating code...");
 	SemanticAnalyzer analyzer;
 	Code code;
 	analyzer.GenerateCodeFromTree(&tree, &code);
@@ -269,16 +337,21 @@ int main(int argc, const char * argv[])
 			PrintError(error);
 		return -1;
 	}
+	PrintMessage("SUCCESS");
 
+	PrintMessage("Outputing code into %s...", pathToCode);
 	BufferWriter codeWriter(fileToBuffer.buffer, fileToBuffer.buffer + fileToBuffer.capacity);
 	PrintCode(codeWriter, &code);
 	fileToBuffer.size = codeWriter.pointer - codeWriter.begin;
-	error = fileToBuffer.WriteFile(argv[6]);
+	error = fileToBuffer.WriteFile(pathToCode);
 	if (error != nullptr)
 	{
 		PrintError(error);
 		return -1;
 	}
+	PrintMessage("SUCCESS");
+
+	PrintMessage("Finished");
 
 	return 0;
 }

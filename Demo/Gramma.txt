@@ -13,7 +13,7 @@
 //------------------------- Program ----------------------
 <program>           ::= 'Program' '{' <lanesDeclare>
 <lanesDeclare>      ::= <laneDeclare> '}' | <laneDeclare> <lanesDeclare>
-<laneDeclare>       ::= <moduleDeclare> | <functionDeclare> | <veriableDeclare> | <classDeclare>
+<laneDeclare>       ::= <functionDeclare> | veriableDeclareInit> | <veriableDeclare> | <classDeclare>
 
 //--------------------------- Characters --------------------------
 <digits>       ::=     <digit> <digits> | <digit>
@@ -32,30 +32,25 @@
 
 <seperator>    ::=     ';'
 
-//------------------------- Modules ----------------------
-<moduleName>            ::= <name>
-
-<moduleDeclare>         ::= 'module' <moduleName> <seperator>
-
 //------------------------- Statements ---------------------
 <block>              ::=     '{' '}' | '{' <statements>
 
 <statements>         ::=     <statement> '}' | <statement> <statements>
 <statement>          ::=     <statementDefault> | <statementCondition> | <statementControl> | <statementReturn> | <expression> <seperator>
 
-<statementDefault>   ::=     <veriableDeclare>
-<statementControl>   ::=     <loopFor> | <loopWhile> | <statementCondition>
+<statementDefault>   ::=     <veriableDeclareInit> | <veriableDeclare>
+<statementControl>   ::=     <loopWhile> | <statementCondition>
 <statementCondition> ::=     'if' '(' <expression> ')' <block> 'else' <block> | 'if' '(' <expression> ')' <block>
 <statementReturn>    ::=     'return' <expression> <seperator>
 
 //---------------------- Loops ----------------
-<loopFor>         ::=     'for' '(' <expression> ';' <expression>' ';' <expression> ')' <block>
 <loopWhile>       ::=     'while' '(' <expression> ')' <block>
 
 //------------------------- Veriables ----------------------
 <veriableName>         ::=    <name>
 
-<veriableDeclare>      ::=    <typeNameFull> <veriableName> <seperator> | <typeNameFull> <veriableName> '=' <expression> <seperator>
+<veriableDeclare>      ::=    <typeNameFull> <veriableName> <seperator>
+<veriableDeclareInit>  ::=    <typeNameFull> <veriableName> '=' <expression> <seperator>
 <veriableChange>       ::=    <expressionVeriable> <assigment> <expression> <seperator>
 
 //------------------------- Functions ----------------------
@@ -70,7 +65,7 @@
 
 //------------------------- Class ----------------------
 <className>      ::=     <name>
-<classNameFull>  ::=     <prefixs> <className> <postfixs> | <prefixs> <className> | <className> <postfixs> | <className>
+<classNameFull>  ::=     <className> <postfix> | <className>
 
 <classDeclare>          ::=     'class' <className> '{' '}' | 'class' <className> '{' <classLanesDeclare> 
 <classLanesDeclare>     ::=     <classLaneDeclare> '}' | <classLaneDeclare> <classLanesDeclare>
@@ -89,13 +84,10 @@
 <constantString>         ::=     '"' <texts> '"'
 <constant>       ::=     <constantInt> | <constantFloat> | <constantBoolean> | <constantString>
 
-<prefixs>        ::=     <prefix>
-<prefix>         ::=     'const'
-<postfixs>       ::=     <postfix> <postfixs> | <postfix>
-<postfix>        ::=     '*' | '&' | '[' <constantInt> ']'
+<postfix>        ::=     '*'
 
 <primitiveName>          ::=     'int' | 'float' | 'string' | 'bool' | 'void'
-<primitiveNameFull>      ::=     <prefixs> <primitiveName> <postfixs> | <prefixs> <primitiveName> | <primitiveName> <postfixs> | <primitiveName>
+<primitiveNameFull>      ::=     <primitiveName> <postfix> | <primitiveName>
 
 <typeNameFull>           ::=     <primitiveNameFull> | <classNameFull>
 
@@ -104,12 +96,11 @@
 <or>           ::=     '|' '|'
 <comparison>   ::=     '<' | '<' '=' | '>' | '>' '=' | '!' '=' | '=' '='
 <add>          ::=     '+' | '-'
-<mult>         ::=     '*' | '/' | '>' '>' | '<' '<' | '%'
-<assigment>    ::=     '=' | '-' '=' | '+' '=' | '*' '='
-<singleOp>     ::=     '!' | '-' | '^' | '~' | '*' | '&'
+<mult>         ::=     '*' | '/'
+<assigment>    ::=     '='
 
-
-<expression>      ::=     <expressionAnd> <or> <expression> | <expressionAnd>
+<expression>      ::=     <expressionOr> <assigment> <expression> | <expressionOr>
+<expressionOr>    ::=     <expressionAnd> <or> <expressionOr> | <expressionAnd>
 <expressionAnd>   ::=     <expressionCmp> <and> <expressionAnd> | <expressionCmp> 
 <expressionCmp>   ::=     <expressionAdd> <comparison> <expressionCmp> | <expressionAdd>
 <expressionAdd>   ::=     <expressionMult> <add> <expressionAdd> | <expressionMult>
@@ -117,5 +108,4 @@
 <expressionUno>   ::=     <expressionVeriable> | <constant> | '(' <expression> ')'
 
 <expressionVeriable>      ::= <expressionVeriableItem> '.' <expressionVeriable> | <expressionVeriableItem>
-<expressionVeriableItem>  ::= <functionCall> <expressionVeriableArray> | <veriableName> <expressionVeriableArray> | <functionCall> | <veriableName>
-<expressionVeriableArray> ::= '[' <expression> ']' <expressionVeriableArray> | '[' <expression> ']'
+<expressionVeriableItem>  ::= <functionCall> | <veriableName>
