@@ -5,6 +5,8 @@
 #include <vector>
 #include <cstdarg>
 
+#define ASSERT(test) if (!test) __debugbreak();
+
 class Error
 {
 public:

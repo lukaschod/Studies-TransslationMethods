@@ -1,0 +1,70 @@
+Program
+{
+	module System;
+
+	class Test
+	{
+		public int a;
+
+		public void MagicFunction(int a, int gaba)
+		{
+		}
+	}
+
+	## Declare function
+	string MagFury(string blabal)
+	{
+		return "helolllolo" + blabal;
+	}
+
+	int Main()
+	{
+		## Declare veriable
+		int a = 10;
+		int b = 25;
+
+		## Expressions
+		float c = c % (a + b) * 500;
+
+		## If condition
+		if ( c == 2)
+		{
+			return 20;
+		}
+		if ( c == 2)
+		{
+			return 20;
+		}
+		else
+		{
+			a = 35;
+		}
+
+		## Array
+		int[20] array;
+
+		## Acess array
+		array[1] = 10;
+		array[a + b] = c * d;
+
+		## Loop
+		while (true)
+		{
+			a = 85;
+		}
+
+		## Call function
+		MagFury("lalal");
+
+		## Instantiate object
+		Test a;
+
+		## Call method
+		a.MagicFunction(5, 3);
+
+		## Change member
+		a.a = 20;
+
+		return 0;
+	}
+}
